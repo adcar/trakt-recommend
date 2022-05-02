@@ -1,0 +1,19 @@
+h1.large {
+    font-size: clamp(30pt, 5vw, 90pt);
+    margin-bottom: 0;
+}
+
+
+.wrapper {
+    padding: 0 10px;
+    text-align: center;
+
+    p {
+        font-size: calc(12pt + 1vw);
+    }
+}
+
+.subtitle {
+    margin-top: 8px;
+    font-weight: 300;
+}

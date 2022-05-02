@@ -1,0 +1,32 @@
+@use "./variables.module";
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300,500;700;900&display=swap');
+
+:root {
+  color-scheme: dark;
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+h1 {
+  font-size: clamp(30pt, 4vw, 50pt);
+  font-weight: 900;
+  margin-bottom: 20px;
+}
+
+p.subtitle {
+  font-size: calc(12pt + 0.6vw);
+  text-align: center;
+}
+
+body {
+  font-family: Montserrat, sans-serif;
+  background-color: variables.$bg;
+  color: white;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 1200px;
+}

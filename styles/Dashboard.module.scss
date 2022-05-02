@@ -1,0 +1,11 @@
+.flex {
+  display: flex;
+}
+
+.movies {
+  transition: all 0.5s ease-in-out;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+  grid-gap: 20px;
+  justify-items: center;
+}

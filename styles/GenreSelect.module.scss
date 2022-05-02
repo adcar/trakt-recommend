@@ -1,0 +1,64 @@
+@use "./variables.module";
+
+
+.cardWrapper {
+
+  color: white;
+  padding: 1rem;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .card {
+    color: white;
+    text-decoration: none;
+    transition: all ease-in-out 0.25s;
+
+    &:hover {
+      cursor: pointer;
+      background-color: variables.$accent-dark;
+    }
+
+    padding: 30px 70px;
+    border-radius: 30px;
+    width: 260px;
+    background-color: variables.$paper;
+
+    img {
+      width: 100%;
+      position: relative;
+    }
+
+    p {
+      font-size: 20pt;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 0;
+    }
+  }
+
+}
+
+.cards {
+  max-width: 1200px;
+  margin: 100px auto 0 auto;
+  display: grid;
+  grid-column-gap: 1rem;
+  grid-row-gap: 8rem;
+}
+
+/* Screen larger than 600px? 2 column */
+@media (min-width: 600px) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Screen larger than 900px? 3 columns */
+@media (min-width: 900px) {
+  .cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+

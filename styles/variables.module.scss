@@ -1,0 +1,12 @@
+$bg: #202028;
+$paper: #2f2f38;
+$accent: #d26773;
+$accent-dark: darken($accent, 10%);
+
+
+:export {
+  bg: $bg;
+  paper: $paper;
+  accent: $accent;
+  accentDark: $accent-dark;
+}
