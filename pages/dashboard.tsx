@@ -70,7 +70,7 @@ export default function Dashboard({ mediaType, genre }: Props) {
     }
   }
 
-  async function updateRecs(type: string, traktId: number) {
+  async function _markAsWatched(type: string, traktId: number) {
     await fetch(
       "/api/trakt/watched?" +
         new URLSearchParams({ type, id: traktId.toString() })
@@ -83,7 +83,32 @@ export default function Dashboard({ mediaType, genre }: Props) {
     console.log("/api/trakt/recommendations?type=" + type);
     await mutate(
       "/api/trakt/recommendations?type=" + type,
-      updateRecs(type, traktId),
+      _markAsWatched(type, traktId),
+      {
+        optimisticData: {
+          success: true,
+          results: data.results.filter(
+            (result: any) => result.traktId !== traktId
+          ),
+        },
+      }
+    );
+  }
+
+  async function _markAsHidden(type: string, traktId: number) {
+    const response = await fetch(
+      "/api/trakt/hide?" + new URLSearchParams({ type, id: traktId.toString() })
+    );
+    console.log("mark as hidden response", response);
+    const res = await fetch("/api/trakt/recommendations?type=" + type);
+    return await res.json();
+  }
+
+  async function markAsHidden(type: any, traktId: any) {
+    console.log("/api/trakt/recommendations?type=" + type);
+    await mutate(
+      "/api/trakt/recommendations?type=" + type,
+      _markAsHidden(type, traktId),
       {
         optimisticData: {
           success: true,
@@ -130,6 +155,7 @@ export default function Dashboard({ mediaType, genre }: Props) {
                         type: "movies",
                       }}
                       onMarkAsWatched={markAsWatched}
+                      onMarkAsHidden={markAsHidden}
                     />
                   </div>
                 ) : (
@@ -142,6 +168,7 @@ export default function Dashboard({ mediaType, genre }: Props) {
                     <Cards
                       {...{ data, filteredGenres, type: "shows" }}
                       onMarkAsWatched={markAsWatched}
+                      onMarkAsHidden={markAsHidden}
                     />
                   </div>
                 ) : (

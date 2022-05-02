@@ -12,6 +12,7 @@ export default function MediaCard({
   traktId,
   type,
   onMarkAsWatched,
+  onMarkAsHidden,
 }: Props) {
   return (
     <div
@@ -33,7 +34,11 @@ export default function MediaCard({
             </IconButton>
           </Tooltip>
           <Tooltip title="Not interested">
-            <IconButton>
+            <IconButton
+              onClick={() => {
+                onMarkAsHidden(type, traktId);
+              }}
+            >
               <RiCloseLine />
             </IconButton>
           </Tooltip>
@@ -61,4 +66,5 @@ interface Props {
   traktId: number;
   type: "shows" | "movies";
   onMarkAsWatched: any;
+  onMarkAsHidden: any;
 }

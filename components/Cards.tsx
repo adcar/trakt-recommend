@@ -1,6 +1,12 @@
 import MediaCard from "./MediaCard";
 
-export function Cards({ data, filteredGenres, type, onMarkAsWatched }: Props) {
+export function Cards({
+  data,
+  filteredGenres,
+  type,
+  onMarkAsWatched,
+  onMarkAsHidden,
+}: Props) {
   return (
     <>
       {data.results
@@ -17,6 +23,7 @@ export function Cards({ data, filteredGenres, type, onMarkAsWatched }: Props) {
             poster_path={movie.poster_path}
             title={movie.title}
             onMarkAsWatched={onMarkAsWatched}
+            onMarkAsHidden={onMarkAsHidden}
           />
         ))}
     </>
@@ -28,4 +35,5 @@ interface Props {
   filteredGenres: string[];
   type: "shows" | "movies";
   onMarkAsWatched: any;
+  onMarkAsHidden: any;
 }
