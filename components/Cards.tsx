@@ -28,6 +28,7 @@ export function Cards({
             year={media.year}
             network={type === "shows" ? media.network : null}
             status={type === "shows" ? media.status : null}
+            runtime={type === "shows" ? media.runtime : null}
             production_companies={
               type === "movies" ? media.production_companies : null
             }

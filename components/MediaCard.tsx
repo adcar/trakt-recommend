@@ -21,6 +21,7 @@ export default function MediaCard({
   rating,
   certification,
   network,
+  runtime,
   production_companies,
   overview,
   genres,
@@ -141,6 +142,10 @@ export default function MediaCard({
                 ? season_count + " Seasons"
                 : season_count + " Season"
               : ""}
+
+            {type === "shows" && runtime !== null
+              ? " - " + runtime + "mins"
+              : ""}
           </p>
           <p className={styles.genres}>
             {genres
@@ -169,14 +174,20 @@ export default function MediaCard({
             <Button
               color="inherit"
               startIcon={<RiCheckLine />}
-              onClick={() => onMarkAsWatched(type, traktId)}
+              onClick={() => {
+                setOpen(false);
+                onMarkAsWatched(type, traktId);
+              }}
             >
               Mark as watched
             </Button>
             <Button
               color="inherit"
               startIcon={<RiCloseLine />}
-              onClick={() => onMarkAsHidden(type, traktId)}
+              onClick={() => {
+                setOpen(false);
+                onMarkAsHidden(type, traktId);
+              }}
             >
               Not interested
             </Button>
@@ -209,6 +220,7 @@ interface Props {
   status: string | null;
   network: string | null;
   season_count: string | null;
+  runtime: string | null;
 
   // Movie stuff
   production_companies: string[] | null;
