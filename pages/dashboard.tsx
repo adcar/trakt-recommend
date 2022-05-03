@@ -14,6 +14,7 @@ import Filters from "../components/Filters";
 import styles from "../styles/Dashboard.module.scss";
 import { Cards } from "../components/Cards";
 import { flatGenres } from "../utils/genres";
+import { markAsHidden, markAsWatched } from "../utils/dashboard/markCard";
 const theme = createTheme({
   typography: {
     fontFamily: "Montserrat, sans-serif",
@@ -69,56 +70,6 @@ export default function Dashboard({ mediaType, genre }: Props) {
     }
   }
 
-  async function _markAsWatched(type: string, traktId: number) {
-    await fetch(
-      "/api/trakt/watched?" +
-        new URLSearchParams({ type, id: traktId.toString() })
-    );
-    const res = await fetch("/api/trakt/recommendations?type=" + type);
-    return await res.json();
-  }
-
-  async function markAsWatched(type: any, traktId: any) {
-    console.log("/api/trakt/recommendations?type=" + type);
-    await mutate(
-      "/api/trakt/recommendations?type=" + type,
-      _markAsWatched(type, traktId),
-      {
-        optimisticData: {
-          success: true,
-          results: data.results.filter(
-            (result: any) => result.ids.trakt !== traktId
-          ),
-        },
-      }
-    );
-  }
-
-  async function _markAsHidden(type: string, traktId: number) {
-    const response = await fetch(
-      "/api/trakt/hide?" + new URLSearchParams({ type, id: traktId.toString() })
-    );
-    console.log("mark as hidden response", response);
-    const res = await fetch("/api/trakt/recommendations?type=" + type);
-    return await res.json();
-  }
-
-  async function markAsHidden(type: any, traktId: any) {
-    console.log("/api/trakt/recommendations?type=" + type);
-    await mutate(
-      "/api/trakt/recommendations?type=" + type,
-      _markAsHidden(type, traktId),
-      {
-        optimisticData: {
-          success: true,
-          results: data.results.filter(
-            (result: any) => result.ids.trakt !== traktId
-          ),
-        },
-      }
-    );
-  }
-
   return (
     <ThemeProvider theme={theme}>
       <div className={"container"}>
@@ -167,8 +118,12 @@ export default function Dashboard({ mediaType, genre }: Props) {
                   <div className={styles.media}>
                     <Cards
                       {...{ data, filteredGenres, type: "shows" }}
-                      onMarkAsWatched={markAsWatched}
-                      onMarkAsHidden={markAsHidden}
+                      onMarkAsWatched={(type: any, traktId: any) =>
+                        markAsWatched(type, traktId, mutate, data)
+                      }
+                      onMarkAsHidden={(type: any, traktId: any) =>
+                        markAsHidden(type, traktId, mutate, data)
+                      }
                     />
                   </div>
                 ) : (
