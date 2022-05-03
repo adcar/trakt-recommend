@@ -61,6 +61,10 @@ $radius: 10px;
 }
 
 .modal {
+
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
   h2 {
     font-size: 28pt;
     font-weight: 700;
@@ -70,7 +74,7 @@ $radius: 10px;
   padding-left: 20px;
   background-size: cover;
   background-color: variables.$bg;
-  height: 500px;
+  min-height: 500px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -98,4 +102,17 @@ $radius: 10px;
 .overview {
   line-height: 1.5em;
   padding-right: 40px;
+  flex: 1;
+}
+
+.modalToolbar {
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  color: white;
+  button {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 20px;
+  }
 }

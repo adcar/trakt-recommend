@@ -2,10 +2,10 @@ import styles from "../styles/MovieCard.module.scss";
 import {
   RiCheckLine,
   RiCloseLine,
+  RiHeartLine,
   RiInformationLine,
-  RiStarLine,
 } from "react-icons/ri";
-import { IconButton, Modal, Tooltip } from "@mui/material";
+import { Button, IconButton, Modal, Tooltip } from "@mui/material";
 import { useState } from "react";
 import Image from "next/image";
 import { Rating } from "./Rating";
@@ -75,9 +75,9 @@ export default function MediaCard({
               </Tooltip>
             </div>
             <div className={styles.toolbar}>
-              <Tooltip title="Rate" placement={"top"}>
+              <Tooltip title="Add to watchlist" placement={"top"}>
                 <IconButton>
-                  <RiStarLine />
+                  <RiHeartLine />
                 </IconButton>
               </Tooltip>
               <Tooltip title="More info" placement={"top"}>
@@ -97,11 +97,12 @@ export default function MediaCard({
         onClose={() => setOpen(false)}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        BackdropProps={{ style: { backdropFilter: "blur(10px)" } }}
       >
         <div
           className={styles.modal}
           style={{
-            backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(https://image.tmdb.org/t/p/w780/${backdrop_path})`,
+            backgroundImage: `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url(https://image.tmdb.org/t/p/w780/${backdrop_path})`,
           }}
         >
           <IconButton
@@ -116,21 +117,25 @@ export default function MediaCard({
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
+              flexWrap: "wrap",
               paddingRight: 40,
               fontWeight: 700,
             }}
           >
             <Rating rating={rating} />
             <Year
+              style={{ style: { margin: 10 } }}
               year={year}
               type={type}
               lastEpisodeDate={lastEpisodeDate}
               status={status}
             />
-            <p>{certification}</p>
-            <p>{type === "shows" ? network : companies}</p>
+            <p style={{ margin: 10 }}>{certification}</p>
+            <p style={{ margin: 10 }}>
+              {type === "shows" ? network : companies}
+            </p>
           </div>
-          <p>
+          <p style={{ fontSize: "11pt" }}>
             {type === "shows" && season_count !== null
               ? parseInt(season_count) > 1
                 ? season_count + " Seasons"
@@ -147,6 +152,38 @@ export default function MediaCard({
           </p>
 
           <p className={styles.overview}>{overview}</p>
+
+          <div className={styles.modalToolbar}>
+            <a
+              href={`https://trakt.tv/${type}/${traktId}`}
+              style={{
+                textDecoration: "none",
+                color: "white",
+              }}
+            >
+              <Button color="inherit" startIcon={<RiInformationLine />}>
+                More info
+              </Button>
+            </a>
+
+            <Button
+              color="inherit"
+              startIcon={<RiCheckLine />}
+              onClick={() => onMarkAsWatched(type, traktId)}
+            >
+              Mark as watched
+            </Button>
+            <Button
+              color="inherit"
+              startIcon={<RiCloseLine />}
+              onClick={() => onMarkAsHidden(type, traktId)}
+            >
+              Not interested
+            </Button>
+            <Button color="inherit" startIcon={<RiHeartLine />}>
+              Add to watchlist
+            </Button>
+          </div>
         </div>
       </Modal>
     </>
