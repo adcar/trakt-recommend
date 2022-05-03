@@ -10,4 +10,15 @@ const genres = [
   { name: "Western", icon: "🤠" },
 ];
 
+export const flatGenres = [
+  "Action",
+  "Romance",
+  "Comedy",
+  "Fantasy",
+  "Anime",
+  "Drama",
+  "Horror",
+  "Western",
+];
+
 export default genres;

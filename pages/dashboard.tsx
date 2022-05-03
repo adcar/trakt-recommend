@@ -13,17 +13,7 @@ import { trakt } from "../utils/api";
 import Filters from "../components/Filters";
 import styles from "../styles/Dashboard.module.scss";
 import { Cards } from "../components/Cards";
-
-const genres = [
-  "Action",
-  "Romance",
-  "Comedy",
-  "Fantasy",
-  "Anime",
-  "Drama",
-  "Horror",
-  "Western",
-];
+import { flatGenres } from "../utils/genres";
 
 const theme = createTheme({
   typography: {
@@ -44,7 +34,7 @@ export default function Dashboard({ mediaType, genre }: Props) {
   const { mutate } = useSWRConfig();
   const [type, setType] = useState(mediaType);
   const [filteredGenres, setFilteredGenres] = useState(
-    genre === "Anything" ? genres : [genre]
+    genre === "Anything" ? flatGenres : [genre]
   );
   const { data, error } = useSWR(
     "/api/trakt/recommendations?type=" + type,
@@ -67,6 +57,16 @@ export default function Dashboard({ mediaType, genre }: Props) {
 
       // Just using `setFilteredGenres(newGenres)` here wouldn't let React know that the state has changed
       setFilteredGenres([...newGenres]);
+    }
+  }
+
+  function onSelectAll() {
+    if (filteredGenres.length === flatGenres.length) {
+      // Deselect all
+      setFilteredGenres([]);
+    } else {
+      // Select all
+      setFilteredGenres(flatGenres);
     }
   }
 
@@ -127,6 +127,7 @@ export default function Dashboard({ mediaType, genre }: Props) {
           <Filters
             filteredGenres={filteredGenres}
             onFilterChange={onFilterChange}
+            onSelectAll={onSelectAll}
           />
           <Box sx={{ width: "100%", typography: "body1" }}>
             <TabContext value={type}>

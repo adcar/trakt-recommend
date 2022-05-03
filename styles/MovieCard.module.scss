@@ -1,12 +1,17 @@
+@use "./variables.module";
+
+$radius: 10px;
+
 .card {
   //background-color: red;
   width: 185px;
   height: 278px;
-  border-radius: 5px;
+  border-radius: $radius;
 }
 
 .cardActions {
-  border-radius: 5px;
+  cursor: pointer;
+  border-radius: $radius;
   transition: all 0.25s ease-in-out;
   background-image: linear-gradient(rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.5) 30%, rgba(0, 0, 0, 0.5) 70%, rgba(0, 0, 0, 0.9) 100%);
   opacity: 0;
@@ -28,4 +33,30 @@
   display: flex;
   justify-content: space-between;
   font-size: 18pt;
+}
+
+.title {
+  margin: 10px 0;
+  padding: 0 10px;
+  font-size: 10pt;
+  width: 185px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wrapper {
+  border-radius: $radius;
+  //background-color: variables.$paper;
+}
+
+.modal {
+  background-color: variables.$bg;
+  width: 800px;
+  height: 400px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  outline: 0;
 }

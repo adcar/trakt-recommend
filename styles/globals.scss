@@ -15,6 +15,11 @@ h1 {
   margin-bottom: 20px;
 }
 
+h2 {
+  font-size: clamp(20pt, 2vw, 40pt);
+  font-weight: 900;
+}
+
 p.subtitle {
   font-size: calc(12pt + 0.6vw);
   text-align: center;

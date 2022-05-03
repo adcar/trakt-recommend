@@ -15,13 +15,17 @@ export function Cards({
             genres.includes(genre.toLowerCase())
           )
         )
-        .map((movie: any, i: number) => (
+        .map((media: any, i: number) => (
           <MediaCard
             key={i}
             type={type}
-            traktId={movie.traktId}
-            poster_path={movie.poster_path}
-            title={movie.title}
+            traktId={media.traktId}
+            poster_path={media.poster_path}
+            title={media.title}
+            year={(type === "movies"
+              ? media.release_date
+              : media.first_air_date
+            ).slice(0, 4)}
             onMarkAsWatched={onMarkAsWatched}
             onMarkAsHidden={onMarkAsHidden}
           />

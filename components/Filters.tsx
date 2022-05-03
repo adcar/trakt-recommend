@@ -1,13 +1,18 @@
 import styles from "../styles/Filters.module.scss";
-import { Checkbox, FormControlLabel, FormGroup } from "@mui/material";
-import genres from "../utils/genres";
+import { Button, Checkbox, FormControlLabel, FormGroup } from "@mui/material";
+import genres, { flatGenres } from "../utils/genres";
 
 interface Props {
   filteredGenres: string[];
   onFilterChange: any;
+  onSelectAll: any;
 }
 
-export default function Filters({ filteredGenres, onFilterChange }: Props) {
+export default function Filters({
+  filteredGenres,
+  onFilterChange,
+  onSelectAll,
+}: Props) {
   return (
     <div className={styles.root}>
       <h2>Genres</h2>
@@ -21,8 +26,8 @@ export default function Filters({ filteredGenres, onFilterChange }: Props) {
               control={
                 <Checkbox
                   {...(filteredGenres.includes(genre.name) // O(n)
-                    ? { defaultChecked: true }
-                    : "")}
+                    ? { checked: true }
+                    : { checked: false })}
                   onChange={onFilterChange}
                 />
               }
@@ -31,6 +36,15 @@ export default function Filters({ filteredGenres, onFilterChange }: Props) {
             />
           ))}
       </FormGroup>
+      <Button
+        variant={"contained"}
+        style={{ marginTop: 20 }}
+        onClick={onSelectAll}
+      >
+        {flatGenres.length === filteredGenres.length
+          ? "Deselect all"
+          : "Select all"}
+      </Button>
     </div>
   );
 }
