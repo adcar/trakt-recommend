@@ -50,6 +50,7 @@ async function recommendations(
     recommendations.forEach((rec: any) => {
       tmdbPromises.push(
         tmdb.tvInfo({ id: rec.ids.tmdb }).then((result: any) => ({
+          totalSeasons: result.seasons.length,
           backdrop_path: result.backdrop_path,
           poster_path: result.poster_path,
           ...rec,

@@ -21,6 +21,7 @@ export function Cards({
             type={type}
             traktId={media.ids.trakt}
             poster_path={media.poster_path}
+            backdrop_path={media.backdrop_path}
             title={media.title}
             year={media.year}
             onMarkAsWatched={onMarkAsWatched}
