@@ -1,6 +1,7 @@
 import styles from "../styles/Filters.module.scss";
 import { Button, Checkbox, FormControlLabel, FormGroup } from "@mui/material";
 import genres, { flatGenres } from "../utils/genres";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 interface Props {
   filteredGenres: string[];
@@ -13,10 +14,11 @@ export default function Filters({
   onFilterChange,
   onSelectAll,
 }: Props) {
+  const isLargerThan800px = useMediaQuery("(min-width:800px)");
   return (
     <div className={styles.root}>
       <h2 style={{ marginBottom: 10, marginTop: 0 }}>Genres</h2>
-      <FormGroup aria-label="position">
+      <FormGroup aria-label="position" row={!isLargerThan800px}>
         {genres
           .filter((genre) => genre.name !== "Anything")
           .map((genre, i) => (

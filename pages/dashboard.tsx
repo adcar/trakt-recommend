@@ -14,7 +14,6 @@ import Filters from "../components/Filters";
 import styles from "../styles/Dashboard.module.scss";
 import { Cards } from "../components/Cards";
 import { flatGenres } from "../utils/genres";
-
 const theme = createTheme({
   typography: {
     fontFamily: "Montserrat, sans-serif",
@@ -28,7 +27,7 @@ const theme = createTheme({
   },
 });
 
-// TODO: In the future I can add suppoort for multiple genres in the URL. This would only be acessible via the URL but
+// TODO: In the future I can add support for multiple genres in the URL. This would only be accessible via the URL but
 // would be helpful in the case of bookmarking / URL sharing
 export default function Dashboard({ mediaType, genre }: Props) {
   const { mutate } = useSWRConfig();
@@ -88,7 +87,7 @@ export default function Dashboard({ mediaType, genre }: Props) {
         optimisticData: {
           success: true,
           results: data.results.filter(
-            (result: any) => result.traktId !== traktId
+            (result: any) => result.ids.trakt !== traktId
           ),
         },
       }
@@ -113,7 +112,7 @@ export default function Dashboard({ mediaType, genre }: Props) {
         optimisticData: {
           success: true,
           results: data.results.filter(
-            (result: any) => result.traktId !== traktId
+            (result: any) => result.ids.trakt !== traktId
           ),
         },
       }
