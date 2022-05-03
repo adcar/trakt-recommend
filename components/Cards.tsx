@@ -19,13 +19,10 @@ export function Cards({
           <MediaCard
             key={i}
             type={type}
-            traktId={media.traktId}
+            traktId={media.ids.trakt}
             poster_path={media.poster_path}
             title={media.title}
-            year={(type === "movies"
-              ? media.release_date
-              : media.first_air_date
-            ).slice(0, 4)}
+            year={media.year}
             onMarkAsWatched={onMarkAsWatched}
             onMarkAsHidden={onMarkAsHidden}
           />

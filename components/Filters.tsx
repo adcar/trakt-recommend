@@ -15,7 +15,7 @@ export default function Filters({
 }: Props) {
   return (
     <div className={styles.root}>
-      <h2>Genres</h2>
+      <h2 style={{ marginBottom: 10, marginTop: 0 }}>Genres</h2>
       <FormGroup aria-label="position">
         {genres
           .filter((genre) => genre.name !== "Anything")

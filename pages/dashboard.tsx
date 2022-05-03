@@ -148,7 +148,7 @@ export default function Dashboard({ mediaType, genre }: Props) {
               </Box>
               <TabPanel value="movies">
                 {data ? (
-                  <div className={styles.movies}>
+                  <div className={styles.media}>
                     <Cards
                       {...{
                         data,
@@ -165,7 +165,7 @@ export default function Dashboard({ mediaType, genre }: Props) {
               </TabPanel>
               <TabPanel value="shows">
                 {data ? (
-                  <div className={styles.movies}>
+                  <div className={styles.media}>
                     <Cards
                       {...{ data, filteredGenres, type: "shows" }}
                       onMarkAsWatched={markAsWatched}
