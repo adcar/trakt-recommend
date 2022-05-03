@@ -33,6 +33,10 @@ async function recommendations(
         tmdb.movieInfo({ id: rec.ids.tmdb }).then((result: any) => ({
           backdrop_path: result.backdrop_path,
           poster_path: result.poster_path,
+          tmdbInfo: result,
+          production_companies: result.production_companies.map(
+            (company: { name: string }) => company.name
+          ),
           ...rec,
         })) // Append traktId to TMDB result for later use and append Trakt genres because they're formatted better
       );
@@ -50,9 +54,10 @@ async function recommendations(
     recommendations.forEach((rec: any) => {
       tmdbPromises.push(
         tmdb.tvInfo({ id: rec.ids.tmdb }).then((result: any) => ({
-          totalSeasons: result.seasons.length,
+          season_count: result.seasons.length,
           backdrop_path: result.backdrop_path,
           poster_path: result.poster_path,
+          lastEpisodeDate: result.last_episode_to_air.air_date,
           ...rec,
         })) // Append traktId to TMDB result for later use
       );

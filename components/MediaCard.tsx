@@ -8,6 +8,8 @@ import {
 import { IconButton, Modal, Tooltip } from "@mui/material";
 import { useState } from "react";
 import Image from "next/image";
+import { Rating } from "./Rating";
+import { Year } from "./Year";
 
 export default function MediaCard({
   poster_path,
@@ -16,9 +18,22 @@ export default function MediaCard({
   type,
   title,
   year,
+  rating,
+  certification,
+  network,
+  production_companies,
+  overview,
+  genres,
+  lastEpisodeDate,
+  status,
+  season_count,
   onMarkAsWatched,
   onMarkAsHidden,
 }: Props) {
+  let companies = "";
+  if (production_companies !== null) {
+    companies = production_companies.slice(0, 2).join(", ");
+  }
   const [open, setOpen] = useState(false);
   return (
     <>
@@ -89,10 +104,49 @@ export default function MediaCard({
             backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(https://image.tmdb.org/t/p/w780/${backdrop_path})`,
           }}
         >
+          <IconButton
+            onClick={() => setOpen(false)}
+            className={styles.modalClose}
+          >
+            <RiCloseLine />
+          </IconButton>
           <h2>{title}</h2>
-          <div>
-            <p>rating here</p>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              paddingRight: 40,
+              fontWeight: 700,
+            }}
+          >
+            <Rating rating={rating} />
+            <Year
+              year={year}
+              type={type}
+              lastEpisodeDate={lastEpisodeDate}
+              status={status}
+            />
+            <p>{certification}</p>
+            <p>{type === "shows" ? network : companies}</p>
           </div>
+          <p>
+            {type === "shows" && season_count !== null
+              ? parseInt(season_count) > 1
+                ? season_count + " Seasons"
+                : season_count + " Season"
+              : ""}
+          </p>
+          <p className={styles.genres}>
+            {genres
+              .map((genre) => {
+                if (genre === "science-fiction") return "Sci-Fi";
+                return genre;
+              })
+              .join(", ")}
+          </p>
+
+          <p className={styles.overview}>{overview}</p>
         </div>
       </Modal>
     </>
@@ -105,7 +159,20 @@ interface Props {
   poster_path: string;
   backdrop_path: string;
   traktId: number;
+  rating: number;
+  genres: string[];
+  overview: string;
+  certification: string;
   type: "shows" | "movies";
   onMarkAsWatched: any;
   onMarkAsHidden: any;
+
+  // TV Show stuff
+  lastEpisodeDate: string | null;
+  status: string | null;
+  network: string | null;
+  season_count: string | null;
+
+  // Movie stuff
+  production_companies: string[] | null;
 }

@@ -22,8 +22,19 @@ export function Cards({
             traktId={media.ids.trakt}
             poster_path={media.poster_path}
             backdrop_path={media.backdrop_path}
+            certification={media.certification}
+            rating={media.rating}
             title={media.title}
             year={media.year}
+            network={type === "shows" ? media.network : null}
+            status={type === "shows" ? media.status : null}
+            production_companies={
+              type === "movies" ? media.production_companies : null
+            }
+            genres={media.genres}
+            overview={media.overview}
+            lastEpisodeDate={type === "shows" ? media.lastEpisodeDate : null}
+            season_count={type === "shows" ? media.season_count : null}
             onMarkAsWatched={onMarkAsWatched}
             onMarkAsHidden={onMarkAsHidden}
           />
