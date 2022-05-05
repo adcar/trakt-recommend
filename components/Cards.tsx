@@ -18,10 +18,15 @@ export function Cards({
     const filteredResults = data.results.filter(({ genres }: any) =>
       filteredGenres.some((genre: any) => genres.includes(genre.toLowerCase()))
     );
+
     setAllResults(filteredResults);
     setResults(filteredResults.slice(0, 20));
-    setHasMore(true);
     setPage(2);
+    if (results.length !== filteredResults.length) {
+      setHasMore(true);
+    } else {
+      setHasMore(false);
+    }
   }, [data, filteredGenres]);
 
   function getResults() {
@@ -40,18 +45,8 @@ export function Cards({
       <InfiniteScroll
         dataLength={results.length} //This is important field to render the next data
         next={getResults}
-        hasMore={hasMore}
+        hasMore={allResults.length === results.length ? false : hasMore}
         loader={<h4>Loading...</h4>}
-        // below props only if you need pull down functionality
-        //refreshFunction={this.refresh}
-        // pullDownToRefresh
-        // pullDownToRefreshThreshold={50}
-        // pullDownToRefreshContent={
-        //   <h3 style={{ textAlign: 'center' }}>&#8595; Pull down to refresh</h3>
-        // }
-        // releaseToRefreshContent={
-        //   <h3 style={{ textAlign: 'center' }}>&#8593; Release to refresh</h3>
-        // }
       >
         {results.map((media: any, i: number) => (
           <MediaCard
@@ -79,15 +74,46 @@ export function Cards({
           />
         ))}
       </InfiniteScroll>
-      {!hasMore ? (
-        <>
+      {!hasMore ||
+      (results.length === 0 && !hasMore) ||
+      (allResults.length === results.length && results.length !== 0) ? (
+        <div
+          style={{
+            padding: "50px 0",
+          }}
+        >
+          {filteredGenres.length !== 0 ? (
+            <>
+              {" "}
+              <h2 style={{ textAlign: "center", marginBottom: 0 }}>
+                <b>That's it!</b>
+              </h2>
+              <p style={{ textAlign: "center" }}>
+                Try changing your genres if there aren't enough results
+              </p>
+            </>
+          ) : (
+            ""
+          )}
+        </div>
+      ) : (
+        ""
+      )}
+
+      {filteredGenres.length === 0 ? (
+        <div
+          style={{
+            padding: "50px 0",
+          }}
+        >
           <h2 style={{ textAlign: "center", marginBottom: 0 }}>
-            <b>That's it!</b>
+            <b>Start selecting some genres!</b>
           </h2>
           <p style={{ textAlign: "center" }}>
-            Try changing your genres if there aren't enough results
+            It looks like you don't have any genres selected. Start selecting
+            some to see results here
           </p>
-        </>
+        </div>
       ) : (
         ""
       )}
