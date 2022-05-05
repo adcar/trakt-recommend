@@ -50,6 +50,8 @@ export default function Dashboard({ mediaType, genre }: Props) {
     return <div>failed to load</div>;
 
   function onFilterChange(e: any, checked: boolean) {
+    // Reset scroll position
+    document.body.scrollTop = document.documentElement.scrollTop = 0;
     if (checked) {
       setFilteredGenres([...filteredGenres, e.target.value]);
     } else {
@@ -62,6 +64,9 @@ export default function Dashboard({ mediaType, genre }: Props) {
   }
 
   function onSelectAll() {
+    // Reset scroll position
+    document.body.scrollTop = document.documentElement.scrollTop = 0;
+
     if (filteredGenres.length === flatGenres.length) {
       // Deselect all
       setFilteredGenres([]);
