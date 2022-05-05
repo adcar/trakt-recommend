@@ -15,6 +15,7 @@ import styles from "../styles/Dashboard.module.scss";
 import { Cards } from "../components/Cards";
 import { flatGenres } from "../utils/genres";
 import { markAsHidden, markAsWatched } from "../utils/dashboard/markCard";
+
 const theme = createTheme({
   typography: {
     fontFamily: "Montserrat, sans-serif",
@@ -29,7 +30,7 @@ const theme = createTheme({
 });
 
 // TODO: In the future I can add support for multiple genres in the URL. This would only be accessible via the URL but
-// would be helpful in the case of bookmarking / URL sharing
+//  would be helpful in the case of bookmarking / URL sharing
 export default function Dashboard({ mediaType, genre }: Props) {
   const { mutate } = useSWRConfig();
   const [type, setType] = useState(mediaType);
@@ -79,12 +80,18 @@ export default function Dashboard({ mediaType, genre }: Props) {
             onFilterChange={onFilterChange}
             onSelectAll={onSelectAll}
           />
+
           <Box sx={{ width: "100%", typography: "body1" }}>
             <TabContext value={type}>
               <Box
                 style={{
                   display: "flex",
                   justifyContent: "center",
+                  position: "sticky",
+                  left: 0,
+                  top: 0,
+                  zIndex: 5,
+                  backgroundColor: variables.bg,
                 }}
                 sx={{ borderBottom: 1, borderColor: "divider" }}
               >

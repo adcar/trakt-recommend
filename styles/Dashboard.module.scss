@@ -6,10 +6,10 @@
   }
 }
 
-.media {
+.media > div > div {
   padding: 10px;
-  max-height: calc(100vh - 120px);
-  overflow-y: auto;
+  //  max-height: calc(100vh - 120px);
+  //overflow-y: auto;
   transition: all 0.5s ease-in-out;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));

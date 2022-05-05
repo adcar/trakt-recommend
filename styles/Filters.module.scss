@@ -1,6 +1,8 @@
 @use "./variables.module";
 
 .root {
+  display: none;
+  //left: 0;
   background-color: variables.$paper;
   box-sizing: border-box;
   height: 100%;
@@ -9,6 +11,9 @@
   width: 100%;
   margin-bottom: 20px;
   @media screen and (min-width: 800px) {
+    display: block;
+    position: sticky;
+    top: 40px;
     width: 300px;
     margin-top: 70px;
     margin-right: 40px;
