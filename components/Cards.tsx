@@ -40,7 +40,6 @@ export function Cards({
     }
   }
 
-  debugger;
 
   return (
     <>
