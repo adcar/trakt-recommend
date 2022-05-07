@@ -1,5 +1,6 @@
 const Trakt = require("trakt.tv");
 const { MovieDb } = require("moviedb-promise");
+require("dotenv").config();
 
 let options = {
   client_id: process.env.TRAKT_CLIENT_ID,

@@ -40,6 +40,8 @@ export function Cards({
     }
   }
 
+  debugger;
+
   return (
     <>
       <InfiniteScroll
